@@ -17,7 +17,7 @@ pnpm install
 pnpm exec esrun index.ts transfer 0.001 6hjq5Wm...
 
 # Airdrop 0.001 SOL to your wallet
-pnpm exec esrun index.ts airdrop 0.001
+pnpm exec esrun index.ts airdrop 1
 ```
 
 ## Learning
