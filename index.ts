@@ -1,9 +1,10 @@
 import * as commander from 'commander';
 
-import { initConfig }           from './src/utils/config';
+import { initConfig } from './src/utils/config';
 import { setupTransferCommand } from './src/commands/transfer.command';
-import { logger }               from './src/utils/logger';
+import { logger } from './src/utils/logger';
 import { setupAirdropCommand } from './src/commands/airdrop.command';
+import { setupPingCommand } from './src/commands/ping.command';
 
 const CLI_DESC = 'A CLI learning tool for testing Solana programs';
 // Initialize Commander
@@ -18,6 +19,7 @@ async function init() {
 
   setupTransferCommand(program);
   setupAirdropCommand(program);
+  setupPingCommand(program);
 
   // Parse command-line arguments
   program.parse(process.argv);

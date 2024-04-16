@@ -42,11 +42,23 @@ const config = convict({
 
 const initConfig = async () => {
   config.validate({ allowed: 'strict' });
+
+  // Keypair validation
   const keypairPath = config.get('keypair_path');
   if (keypairPath) {
     const keypair = await getKeypairFromFile(keypairPath);
     config.set('keypair', keypair);
+    return;
   }
+  const secretKey = config.get('secret_key');
+  if (secretKey) {
+    const keypair = Keypair.fromSecretKey(
+      Uint8Array.from(JSON.parse(secretKey)),
+    );
+    config.set('keypair', keypair);
+    return;
+  }
+  throw new Error('No keypair provided');
 };
 
 export { config, initConfig };

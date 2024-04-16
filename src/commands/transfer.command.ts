@@ -1,9 +1,11 @@
 import { Command } from 'commander';
+import { PublicKey } from '@solana/web3.js';
+
 import { config } from '../utils/config';
 import { logger } from '../utils/logger';
-import { PublicKey } from '@solana/web3.js';
 import { sendSol } from '../transfer';
 import { getConfirmation } from '../solana-utils';
+import { CLUSTER_NAME } from '../constants';
 
 export const setupTransferCommand = (program: Command) => {
   program
@@ -22,8 +24,8 @@ export const setupTransferCommand = (program: Command) => {
       logger.info(`🌌 Attempting to transfer ${amount} SOL to ${publickey}...`);
 
       const senderKeypair = config.get('keypair');
-      logger.info(`✅ Loaded our own keypair, and connected to Solana`);
       logger.info(`🔐 senderKeypair: ${senderKeypair.publicKey.toBase58()}`);
+      // logger.info(`✅ Loaded our own keypair, and connected to Solana`);
 
       logger.info(`📥 suppliedToPubkey: ${publickey}`);
 
@@ -36,10 +38,7 @@ export const setupTransferCommand = (program: Command) => {
       if (!result) {
         process.exit(1);
       }
-      const explorerUrl = `https://explorer.solana.com/tx/${result.signatures.pop()}?cluster=devnet`;
+      const explorerUrl = `https://explorer.solana.com/tx/${result.signatures.pop()}?cluster=${CLUSTER_NAME}`;
       logger.info(`🔍 You can view your transaction at: ${explorerUrl}`);
-      // logger.info(
-      //   `Transaction confirmed with message: ${JSON.stringify(message.getAccountKeys())}`,
-      // );
     });
 };

@@ -20,7 +20,7 @@ export const setupAirdropCommand = (program: Command) => {
         process.exit(1);
       }
       const payerKeypair = config.get('keypair');
-      const balance = await getBalance(payerKeypair.publicKey);
+      await getBalance(payerKeypair.publicKey);
       console.log(`Requesting a SOL airdrop of ${amount}...`);
       const newBalance = await airdropIfRequired(
         connection,
